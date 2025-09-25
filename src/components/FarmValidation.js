@@ -1,0 +1,117 @@
+
+import { Field, Form, Formik } from 'formik'
+import { Col, Button, Row, FormGroup, Container } from 'react-bootstrap'
+import * as Yup from 'yup';
+
+function FormValidation() {
+
+  
+
+  const signupschema = Yup.object({
+    name: Yup.string().max(20, "Too Long").required("required"),
+    email: Yup.string().email("invalid email").required("required"),
+    username: Yup.string().max(20, "to Long").required("required")
+  })
+  return (
+    <div className="min-vh-100 d-flex align-items-center bg-success">
+      <Container>
+        <Row className="justify-content-between g-5">
+          <Col xs={12} md={8} lg={4}>
+            <Formik
+              initialValues={{ name: "", email: "", username: "" }}
+              validationSchema={signupschema}
+              onSubmit={(value) => {
+                console.log(value)
+                alert("Data update successfully")
+              }}
+            >
+              <Form className="bg-white p-4">
+                <h2 className="text-center mb-4 text-success fs- 3 fw-bold">User Validation Form</h2>
+
+                <FormGroup className="mb-3">
+                  <label className="form-label fw-bold">Name</label>
+                  <Field
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="Enter your name"
+                  />
+                </FormGroup>
+
+                <FormGroup className="mb-3">
+                  <label className="form-label fw-bold">Email</label>
+                  <Field
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="Enter your email"
+                  />
+                </FormGroup>
+
+                <FormGroup className="mb-3">
+                  <label className="form-label fw-bold">Username</label>
+                  <Field
+                    type="text"
+                    name="username"
+                    className="form-control"
+                    placeholder="Enter a username"
+                  />
+                </FormGroup>
+
+                <div className="d-grid">
+
+                  <Button type="submit" className="btn border-danger btn-success" >
+                    Submit
+                  </Button>
+
+                </div>
+              </Form>
+            </Formik>
+          </Col>
+
+          <Col xs={12} md={12} lg={8}>
+            <div className=" bg-white">
+              {/* table-responsive must wrap the table */}
+              <div className="table-responsive">
+                <table className="table table-hover text-center align-middle">
+                  <thead className="table-success fs-5">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Althaf Hussaian</td>
+                      <td>althafhussaian@gmail.com</td>
+                      <td>Althaf12@</td>
+                      <td>
+                        <div className="d-flex justify-content-center gap-2">
+                          <Button
+                            variant="outline-primary"   
+                            className="px-3" >
+                            Edit
+                          </Button>
+                          <Button
+                            variant="outline-danger"   className="px-3">   Delete </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Col>
+
+
+        </Row>
+      </Container>
+    </div>
+  )
+}
+
+export default FormValidation
