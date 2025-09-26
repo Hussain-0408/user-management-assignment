@@ -20,6 +20,12 @@ function FormValidation() {
       
     })
   }
+
+  const handledelte =(id)=>{
+       axios.delete('https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}').then(()=>{
+        fetchdata();
+       })
+  }
   useEffect(() => {
     fetchdata()
     // postData()
@@ -119,7 +125,7 @@ function FormValidation() {
                               Edit
                             </Button>
                             <Button
-                              variant="outline-danger" className="px-3">   Delete </Button>
+                              variant="outline-danger" className="px-3" onClick={()=>(handledelte(e.id))}>   Delete </Button>
                           </div>
                         </td>
                       </tr>
