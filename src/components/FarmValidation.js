@@ -9,7 +9,7 @@ function FormValidation() {
 
   const [result, setResult] = useState([])
   const [show, setShow] = useState(false);
-  // const [deleteid, setDeleteid] = useState(null)
+  const [deleteid, setDeleteid] = useState(null)
 
   const fetchdata = () => {
     axios.get("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement").then((res) => {
@@ -24,8 +24,8 @@ function FormValidation() {
     })
   }
 
-  const handledelte = (id) => {
-    axios.delete(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`).then(() => {
+  const handledelte = () => {
+    axios.delete(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${deleteid}`).then(() => {
       fetchdata();
       setShow(false);
     });
@@ -33,9 +33,9 @@ function FormValidation() {
 
 
 const handleclose = () => setShow(false)
-const handleshow = () => {
+const handleshow = (id) => {
   setShow(true)
-  // setDeleteid(id)
+  setDeleteid(id)
 }
 
 useEffect(() => {
@@ -142,7 +142,7 @@ return (
                             Edit
                           </Button>
                           <Button
-                            variant="outline-danger" className="px-3" onClick={() => handleshow(true)}>   Delete </Button>
+                            variant="outline-danger" className="px-3" onClick={() => handleshow(e.id) }>   Delete </Button>
                         </div>
                       </td>
                     </tr>
@@ -153,7 +153,7 @@ return (
             </div>
           </div>
         </Col>
-        <Modal show={show} onHide={handleclose}>
+        <Modal show={show} onHide={handleclose} centered>
           <Modal.Dialog >
             <Modal.Header closeButton>
               <Modal.Title>Modal title</Modal.Title>
