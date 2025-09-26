@@ -9,7 +9,7 @@ function App() {
     <div >
       <Routes>
         <Route path='/' element ={<FormValaidation/>} />
-         <Route path='/user' element ={<UserTable />} />
+         {/* <Route path='/' element ={<UserTable />} /> */}
        
       </Routes>
     </div>

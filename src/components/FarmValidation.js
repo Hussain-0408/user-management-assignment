@@ -1,11 +1,29 @@
 
+import axios from 'axios';
 import { Field, Form, Formik } from 'formik'
+import { useEffect, useState } from 'react';
 import { Col, Button, Row, FormGroup, Container } from 'react-bootstrap'
 import * as Yup from 'yup';
 
 function FormValidation() {
 
-  
+  const [result, setResult] = useState([])
+  const fetchdata = () => {
+    axios.get("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement").then((res) => {
+      setResult(res.data)
+      console.log(res.data)
+    })
+  }
+  const postData = (value)=>{
+    axios.post("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement",value).then((res)=>{
+      setResult([...result,res.data])
+      
+    })
+  }
+  useEffect(() => {
+    fetchdata()
+    // postData()
+  }, [])
 
   const signupschema = Yup.object({
     name: Yup.string().max(20, "Too Long").required("required"),
@@ -20,9 +38,12 @@ function FormValidation() {
             <Formik
               initialValues={{ name: "", email: "", username: "" }}
               validationSchema={signupschema}
-              onSubmit={(value) => {
-                console.log(value)
+              onSubmit={(value,{resetForm}) => {
+                // console.log(value)
+                postData(value);
+                resetForm();
                 alert("Data update successfully")
+                // setResult([])
               }}
             >
               <Form className="bg-white p-4">
@@ -71,8 +92,8 @@ function FormValidation() {
 
           <Col xs={12} md={12} lg={8}>
             <div className=" bg-white">
-              {/* table-responsive must wrap the table */}
-              <div className="table-responsive">
+
+              < div className="table-responsive" >
                 <table className="table table-hover text-center align-middle">
                   <thead className="table-success fs-5">
                     <tr>
@@ -84,33 +105,33 @@ function FormValidation() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Althaf Hussaian</td>
-                      <td>althafhussaian@gmail.com</td>
-                      <td>Althaf12@</td>
-                      <td>
-                        <div className="d-flex justify-content-center gap-2">
-                          <Button
-                            variant="outline-primary"   
-                            className="px-3" >
-                            Edit
-                          </Button>
-                          <Button
-                            variant="outline-danger"   className="px-3">   Delete </Button>
-                        </div>
-                      </td>
-                    </tr>
+                    {result.map((e, index) => (
+                      <tr key={index}>
+                        <td>{e.id}</td>
+                        <td>{e.name}</td>
+                        <td>{e.email}</td>
+                        <td>{e.username}</td>
+                        <td>
+                          <div className="d-flex justify-content-center gap-2">
+                            <Button
+                              variant="outline-primary"
+                              className="px-3" >
+                              Edit
+                            </Button>
+                            <Button
+                              variant="outline-danger" className="px-3">   Delete </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </Col>
-
-
         </Row>
       </Container>
-    </div>
+    </div >
   )
 }
 
