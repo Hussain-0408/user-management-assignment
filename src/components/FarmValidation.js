@@ -22,11 +22,12 @@ function FormValidation() {
   }
 
   const handledelte = (id) => {
+    if(window.confirm("Are you sure delete data")){
     axios.delete(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`).then(() => {
       fetchdata();
       // setShow(false);
-
     });
+  }
   };
 
   useEffect(() => {
@@ -139,7 +140,6 @@ function FormValidation() {
             </div>
           </Col>
           
-
         </Row>
       </Container>
     </div >
