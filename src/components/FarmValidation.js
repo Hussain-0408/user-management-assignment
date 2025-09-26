@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik'
 import { useEffect, useState } from 'react';
-import { Col, Button, Row, FormGroup, Container } from 'react-bootstrap'
+import { Col, Button, Row, FormGroup, Container, Modal } from 'react-bootstrap'
 import * as Yup from 'yup';
 
 function FormValidation() {
@@ -14,18 +14,21 @@ function FormValidation() {
       console.log(res.data)
     })
   }
-  const postData = (value)=>{
-    axios.post("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement",value).then((res)=>{
-      setResult([...result,res.data])
-      
+  const postData = (value) => {
+    axios.post("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement", value).then((res) => {
+      setResult([...result, res.data])
+
     })
   }
 
-  const handledelte =(id)=>{
-       axios.delete('https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}').then(()=>{
-        fetchdata();
-       })
-  }
+  const handledelte = (id) => {
+    axios.delete(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`).then(() => {
+      fetchdata();
+      // setShow(false);
+
+    });
+  };
+
   useEffect(() => {
     fetchdata()
     // postData()
@@ -44,7 +47,7 @@ function FormValidation() {
             <Formik
               initialValues={{ name: "", email: "", username: "" }}
               validationSchema={signupschema}
-              onSubmit={(value,{resetForm}) => {
+              onSubmit={(value, { resetForm }) => {
                 // console.log(value)
                 postData(value);
                 resetForm();
@@ -125,7 +128,7 @@ function FormValidation() {
                               Edit
                             </Button>
                             <Button
-                              variant="outline-danger" className="px-3" onClick={()=>(handledelte(e.id))}>   Delete </Button>
+                              variant="outline-danger" className="px-3" onClick={() => (handledelte(e.id))}>   Delete </Button>
                           </div>
                         </td>
                       </tr>
@@ -135,6 +138,8 @@ function FormValidation() {
               </div>
             </div>
           </Col>
+          
+
         </Row>
       </Container>
     </div >
