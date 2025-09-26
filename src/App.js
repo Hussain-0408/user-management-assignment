@@ -2,7 +2,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import FormValaidation from './components/FarmValidation';
-import UserTable from './components/UserTable';
+// import UserTable from './components/UserTable';
 
 function App() {
   return (

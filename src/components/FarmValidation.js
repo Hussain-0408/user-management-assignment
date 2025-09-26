@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik'
 import { useEffect, useState } from 'react';
-import { Col, Button, Row, FormGroup, Container, Modal } from 'react-bootstrap'
+import { Col, Button, Row, FormGroup, Container } from 'react-bootstrap'
 import * as Yup from 'yup';
 
 function FormValidation() {
@@ -32,14 +32,6 @@ function FormValidation() {
     }
   };
 
-  const handleedite =(id,name,email,username)=>{
-    axios.put(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`,{
-      id:id,
-      name:name,
-      email:email,
-      username: username
-    })
-  }
 
   useEffect(() => {
     fetchdata()
@@ -140,7 +132,7 @@ function FormValidation() {
                           <div className="d-flex justify-content-center gap-2">
                             <Button
                               variant="outline-primary"
-                              className="px-3" onClick={() => (handleedite(e.id, e.name, e.email, e.username))} >
+                              className="px-3">
                               Edit
                             </Button>
                             <Button
@@ -157,68 +149,6 @@ function FormValidation() {
           </Col>
 
         </Row>
-        {/* <Row className='justify-content-center g-5'>
-          <Col xs={12} md={8} lg={12}>
-            <Formik
-              initialValues={{ name: "", email: "", username: "" }}
-              validationSchema={signupschema}
-              onSubmit={(value, { resetForm }) => {
-                // console.log(value)
-                // postData(value);
-                resetForm();
-                // alert("Data update successfully")
-                // setResult([])
-                if (window.confirm("updated succecfully")) {
-                  postData(value);
-                }
-              }}
-            >
-              <Form className="bg-white p-4">
-                <h2 className="text-center mb-4 text-success fs- 3 fw-bold">User Validation Form</h2>
-
-                <FormGroup className="mb-3">
-                  <label className="form-label fw-bold">Name</label>
-                  <Field
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    placeholder="Enter your name"
-                  />
-                </FormGroup>
-
-                <FormGroup className="mb-3">
-                  <label className="form-label fw-bold">Email</label>
-                  <Field
-                    type="email"
-                    name="email"
-                    className="form-control"
-                    placeholder="Enter your email"
-                  />
-                </FormGroup>
-
-                <FormGroup className="mb-3">
-                  <label className="form-label fw-bold">Username</label>
-                  <Field
-                    type="text"
-                    name="username"
-                    className="form-control"
-                    placeholder="Enter a username"
-                  />
-                </FormGroup>
-
-                <div className="d-grid">
-
-                  <Button type="submit" className="btn border-danger btn-success" >
-                    Submit
-                  </Button>
-
-                </div>
-              </Form>
-            </Formik>
-          </Col>
-        </Row> */}
-
-
       </Container>
     </div >
   )
