@@ -22,13 +22,24 @@ function FormValidation() {
   }
 
   const handledelte = (id) => {
-    if(window.confirm("Are you sure delete data")){
-    axios.delete(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`).then(() => {
-      fetchdata();
-      // setShow(false);
-    });
-  }
+    if (window.confirm("Are you sure delete data")) {
+      axios.delete(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`).then(() => {
+        fetchdata();
+        // setShow(false);
+      });
+    } else {
+      alert("something went wrong")
+    }
   };
+
+  const handleedite =(id,name,email,username)=>{
+    axios.put(`https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement/${id}`,{
+      id:id,
+      name:name,
+      email:email,
+      username: username
+    })
+  }
 
   useEffect(() => {
     fetchdata()
@@ -41,7 +52,7 @@ function FormValidation() {
     username: Yup.string().max(20, "to Long").required("required")
   })
   return (
-    <div className="min-vh-100 d-flex align-items-center bg-success">
+    <div className="min-vh-100 d-flex  align-items-center bg-success">
       <Container>
         <Row className="justify-content-between g-5">
           <Col xs={12} md={8} lg={4}>
@@ -52,8 +63,11 @@ function FormValidation() {
                 // console.log(value)
                 postData(value);
                 resetForm();
-                alert("Data update successfully")
+                // alert("Data update successfully")
                 // setResult([])
+                window.confirm("updated succecfully")
+
+
               }}
             >
               <Form className="bg-white p-4">
@@ -114,6 +128,7 @@ function FormValidation() {
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {result.map((e, index) => (
                       <tr key={index}>
@@ -125,7 +140,7 @@ function FormValidation() {
                           <div className="d-flex justify-content-center gap-2">
                             <Button
                               variant="outline-primary"
-                              className="px-3" >
+                              className="px-3" onClick={() => (handleedite(e.id, e.name, e.email, e.username))} >
                               Edit
                             </Button>
                             <Button
@@ -135,15 +150,79 @@ function FormValidation() {
                       </tr>
                     ))}
                   </tbody>
+
                 </table>
               </div>
             </div>
           </Col>
-          
+
         </Row>
+        {/* <Row className='justify-content-center g-5'>
+          <Col xs={12} md={8} lg={12}>
+            <Formik
+              initialValues={{ name: "", email: "", username: "" }}
+              validationSchema={signupschema}
+              onSubmit={(value, { resetForm }) => {
+                // console.log(value)
+                // postData(value);
+                resetForm();
+                // alert("Data update successfully")
+                // setResult([])
+                if (window.confirm("updated succecfully")) {
+                  postData(value);
+                }
+              }}
+            >
+              <Form className="bg-white p-4">
+                <h2 className="text-center mb-4 text-success fs- 3 fw-bold">User Validation Form</h2>
+
+                <FormGroup className="mb-3">
+                  <label className="form-label fw-bold">Name</label>
+                  <Field
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="Enter your name"
+                  />
+                </FormGroup>
+
+                <FormGroup className="mb-3">
+                  <label className="form-label fw-bold">Email</label>
+                  <Field
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="Enter your email"
+                  />
+                </FormGroup>
+
+                <FormGroup className="mb-3">
+                  <label className="form-label fw-bold">Username</label>
+                  <Field
+                    type="text"
+                    name="username"
+                    className="form-control"
+                    placeholder="Enter a username"
+                  />
+                </FormGroup>
+
+                <div className="d-grid">
+
+                  <Button type="submit" className="btn border-danger btn-success" >
+                    Submit
+                  </Button>
+
+                </div>
+              </Form>
+            </Formik>
+          </Col>
+        </Row> */}
+
+
       </Container>
     </div >
   )
 }
 
-export default FormValidation
+
+export default FormValidation 
