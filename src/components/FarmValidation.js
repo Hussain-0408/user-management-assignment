@@ -6,7 +6,7 @@ import { Col, Button, Row, FormGroup, Container, Modal } from 'react-bootstrap'
 import * as Yup from 'yup';
 
 function FormValidation() {
-
+ 
   const [result, setResult] = useState([])
   const [show, setShow] = useState(false);
   const [deleteid, setDeleteid] = useState(null)
@@ -15,7 +15,7 @@ function FormValidation() {
     axios.get("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement").then((res) => {
       setResult(res.data)
       console.log(res.data)
-    })
+    }).catch(err => console.log(err))
   }
   const postData = (value) => {
     axios.post("https://68d6104dc2a1754b42695f65.mockapi.io/usermanagement", value).then((res) => {
@@ -78,6 +78,7 @@ return (
                   name="name"
                   className="form-control"
                   placeholder="Enter your name"
+                  
                 />
               </FormGroup>
 
@@ -86,6 +87,7 @@ return (
                 <Field
                   type="email"
                   name="email"
+                 
                   className="form-control"
                   placeholder="Enter your email"
                 />
@@ -96,6 +98,7 @@ return (
                 <Field
                   type="text"
                   name="username"
+                 
                   className="form-control"
                   placeholder="Enter a username"
                 />
@@ -139,6 +142,7 @@ return (
                           <Button
                             variant="outline-primary"
                             className="px-3">
+                              
                             Edit
                           </Button>
                           <Button
