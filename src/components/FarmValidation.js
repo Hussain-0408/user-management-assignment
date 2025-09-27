@@ -55,6 +55,7 @@ function FormValidation() {
 
 
   const handleclose = () => setShow(false)
+  const handlecancel =() => setEdit(false)
   const handleshow = (id) => {
     setShow(true)
     setDeleteid(id)
@@ -176,26 +177,24 @@ function FormValidation() {
               </div>
             </div>
           </Col>
-          <Modal show={show} onHide={handleclose} centered>
-            <Modal.Dialog >
-              <Modal.Header closeButton>
-                <Modal.Title>Modal title</Modal.Title>
-              </Modal.Header>
+          <Modal show={show} onHide={handleclose} className='w-100' centered>
+            <Modal.Dialog className='w-100 p-3 text-center' >
+            
 
-              <Modal.Body>
-                <p>Are you confirm to delete</p>
+              <Modal.Body >
+                <p className='p-3 fs-5 fw-bold'>Are you confirm to delete</p>
               </Modal.Body>
 
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleclose}>Cancel</Button>
-                <Button variant="primary" onClick={handledelte}>Delete</Button>
+              <Modal.Footer className='w-100 justify-content-around' >
+                <Button variant="primary " onClick={handleclose}>Cancel</Button>
+                <Button variant="btn btn-danger " onClick={handledelte}>Delete</Button>
               </Modal.Footer>
             </Modal.Dialog>
           </Modal>
 
 
-          <Modal show={edit} onHide={handleclose} centered>
-            <Modal.Dialog >
+          <Modal show={edit} onHide={handlecancel} centered>
+            <Modal.Dialog  >
               <Formik
                 initialValues={{  name: editUser.name, email: editUser.email, username: editUser.username }}
                 validationSchema={signupschema}
@@ -208,11 +207,11 @@ function FormValidation() {
                   // alert("Data update successfully")
                   // setResult([])
                   window.confirm("updated succecfully")
-
+                    
 
                 }}
               >
-                <Form className="bg-white p-4">
+                <Form className="bg-white p-5">
                   <h2 className="text-center mb-4 text-success fs- 3 fw-bold">User Validation Form</h2>
 
                   <FormGroup className="mb-3">
@@ -231,7 +230,6 @@ function FormValidation() {
                     <Field
                       type="email"
                       name="email"
-
                       className="form-control"
                       placeholder="Enter your email"
                     />
@@ -242,17 +240,19 @@ function FormValidation() {
                     <Field
                       type="text"
                       name="username"
-
                       className="form-control"
                       placeholder="Enter a username"
                     />
                   </FormGroup>
 
-                  <div className="d-grid">
+                  <div className="d-flex w-100 justify-content-around g-3">
 
-                    <Button type="submit" className="btn border-danger btn-success"  >
+                    <Button type="submit" className="btn border-danger btn-success w-50"  >
                       Update
                     </Button>
+                    <Button variant="secondary" className='btn border-danger btn-danger w-50' onClick={handlecancel}>Cancel</Button>
+
+                   
 
                   </div>
                 </Form>
